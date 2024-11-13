@@ -1,7 +1,7 @@
 name: CI for Nginx and Test Containers
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 
