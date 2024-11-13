@@ -14,8 +14,7 @@ WORKDIR /app
 
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=requirements.txt,target=requirements.txt \
-    python -m pip install -r requirements.txt \
-    python -m pip install requests
+    python -m pip install -r requests
 
 # Copy the test script into the container
 COPY test_nginx.py /test_nginx.py
