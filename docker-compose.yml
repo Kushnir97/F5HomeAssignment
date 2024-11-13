@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  nginx-container:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+
+  test-container:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    depends_on:
+      - nginx-container
+    volumes:
+      - ./results:/results
