@@ -1,10 +1,10 @@
 # Use Python slim image as base to keep it lightweight
 FROM python:3.11-slim
+RUN pip install requests
 
 # Copy the test script into the container
 COPY test_nginx.py /test_nginx.py
 
 # Run the test script
-RUN pip install requests
 
 CMD ["python3", "/test_nginx.py"]
