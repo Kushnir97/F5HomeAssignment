@@ -1,0 +1,36 @@
+name: CI for Nginx and Test Containers
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v2
+
+    - name: Build and run Docker Compose
+      run: |
+        docker-compose up --build --abort-on-container-exit
+
+    - name: Check test result
+      run: |
+        if [ -f ./results/succeeded ]; then
+          echo "Test succeeded"
+        else
+          echo "Test failed"
+          exit 1
+        fi
+
+    - name: Archive result
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-result
+        path: ./results/*
